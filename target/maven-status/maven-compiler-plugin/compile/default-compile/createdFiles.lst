@@ -1,0 +1,6 @@
+com/homeacc/repository/PropertyRepository.class
+com/homeacc/HomeAccApplication.class
+com/homeacc/controller/PropertyController.class
+com/homeacc/model/Property.class
+com/homeacc/exception/ValidationException.class
+com/homeacc/model/Property$PropertyBuilder.class

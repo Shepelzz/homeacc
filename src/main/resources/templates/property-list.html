@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div th:switch="${properties}">
+    <h2 th:case="null">No properties yet!</h2>
+    <div th:case="*">
+        <h2>Properties</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>Country</th>
+                <th>City</th>
+                <th>Street</th>
+                <th>House No</th>
+                <th>Flat</th>
+                <th></th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <div th:each="p : ${properties}">
+                <tr id="row${p.id}">
+                    <td th:text="${p.country}"></td>
+                    <td th:text="${p.city}"></td>
+                    <td th:text="${p.street}"></td>
+                    <td th:text="${p.houseNo}"></td>
+                    <td th:text="${p.flat}"></td>
+                    <td><button onclick="showhide('row${p.id}'); showhide('editForm${p.id}')">Edit</button></td>
+    <!--                <td><a th:href="@{/property/update/{id}(id=${p.id})}">Edit</a></td>-->
+                    <td><a th:href="@{/property/delete/{id}(id=${p.id})}">Delete</a></td>
+                </tr>
+                <tr id="editForm${p.id}" style="display: none">
+                    <form action="#"
+                          th:action="@{/property/update/{id}(id=${p.id})}"
+                          th:object="${property}"
+                          method="post">
+                        <td colspan="5">
+                            <input type="text" th:field="*{country}" id="country" placeholder="Country">
+                            <input type="text" th:field="*{city}" id="city" placeholder="City">
+                            <input type="text" th:field="*{street}" id="street" placeholder="Street">
+                            <input type="text" th:field="*{houseNo}" id="houseNo" placeholder="House No">
+                            <input type="text" th:field="*{flat}" id="flat" placeholder="Flat">
+                        </td>
+                        <td>
+                            <input type="submit" value="Update Property">
+                        </td>
+                    </form>
+                </tr>
+            </div>
+            </tbody>
+        </table>
+    </div>
+    <p><button id="addBtn" onclick="showhide('cancelBtn'); showhide('addBtn'); showhide('saveForm')">Add new property</button></p>
+    <p><button style="display: none" id="cancelBtn" onclick="showhide('addBtn'); showhide('cancelBtn'); showhide('saveForm')">Cancel</button></p>
+    <form style="display: none" id="saveForm" action="#" th:action="@{/property/add}" th:object="${property}" method="post">
+        <label for="country">Country</label>
+        <input type="text" th:field="*{country}" placeholder="Country">
+        <label for="city">City</label>
+        <input type="text" th:field="*{city}" placeholder="City">
+        <label for="street">Street</label>
+        <input type="text" th:field="*{street}"placeholder="Street">
+        <label for="houseNo">House No</label>
+        <input type="text" th:field="*{houseNo}" placeholder="House No">
+        <label for="flat">Flat</label>
+        <input type="text" th:field="*{flat}" placeholder="Flat">
+
+        <input type="submit" value="Add Property">
+    </form>
+</div>
+
+</body>
+<script>
+    function showhide(id) {
+        var x = document.getElementById(id);
+        if (x.style.display === "none") {
+            x.style.display = "block";
+        } else {
+            x.style.display = "none";
+        }
+    }
+</script>
+</html>
