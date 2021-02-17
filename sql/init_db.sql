@@ -7,8 +7,6 @@ create table REF_MONTH
 	constraint REF_MONTH_pk primary key (ID)
 );
 
-
-
 CREATE TABLE REF_YEAR (
 	ID INT,
 	NAME VARCHAR(4),
@@ -47,3 +45,9 @@ CREATE TABLE PROPERTY (
 	FLAT INT,
 	constraint PROPERTY_pk primary key (ID)
 )
+
+create table REF_COUNTRY (
+    ID int auto_increment,
+    NAME varchar(100) not null,
+    constraint REF_COUNTRY_pk primary key (ID)
+);
