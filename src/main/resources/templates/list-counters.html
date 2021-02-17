@@ -15,43 +15,36 @@
 <div class="container my-2">
     <div class="card">
         <div class="card-body">
-            <div th:switch="${properties}" class="container my-5">
+            <div th:switch="${counters}" class="container my-5">
                 <p class="my-5">
-                    <a href="/property/edit" class="btn btn-primary">
-                        <i class="fas fa-user-plus ml-2"> Add Property </i></a>
+                    <a th:href="@{__${#httpServletRequest.requestURI}__/edit}" class="btn btn-primary">
+                        <i class="fas fa-user-plus ml-2"> Add Counter </i></a>
                 </p>
                 <div class="col-md-10">
+                    <h4 class="mb-3" th:text="${property.getFullName()}">propertyName</h4>
                     <h2 th:case="null">No record found !!</h2>
                     <div th:case="*">
                         <table class="table table-striped table-responsive-md">
                             <thead>
                             <tr>
-                                <th>Country</th>
-                                <th>City</th>
-                                <th>Street</th>
-                                <th>House No</th>
-                                <th>Flat</th>
+                                <th>Name</th>
+                                <th>Serial Number</th>
                                 <th>Edit</th>
                                 <th>Delete</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <tr th:each="p : ${properties}">
-                                <a th:href="@{/property/{propertyId}/counters(propertyId=${p.id})}">
-                                    <td th:text="${p.country.name}">name</td>
-                                    <td th:text="${p.city}">city</td>
-                                    <td th:text="${p.street}">street</td>
-                                    <td th:text="${p.houseNo}">house</td>
-                                    <td th:text="${p.flat}">flat</td>
-                                </a>
+                            <tr th:each="c : ${counters}">
+                                <td th:text="${c.name}"></td>
+                                <td th:text="${c.serialNumber}"></td>
                                 <td>
-                                    <a th:href="@{/property/edit/{id}(id=${p.id})}"
+                                    <a th:href="@{__${#httpServletRequest.requestURI}__/edit/{id}(id=${c.id})}"
                                        class="btn btn-primary">
                                         <i class="fas fa-user-edit ml-2"></i>
                                     </a>
                                 </td>
                                 <td>
-                                    <a th:href="@{/property/delete/{id}(id=${p.id})}"
+                                    <a th:href="@{__${#httpServletRequest.requestURI}__/delete/{id}(id=${c.id})}"
                                        class="btn btn-primary">
                                         <i class="fas fa-user-times ml-2"></i>
                                     </a>

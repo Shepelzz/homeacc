@@ -7,27 +7,20 @@ create table REF_MONTH
 	constraint REF_MONTH_pk primary key (ID)
 );
 
-CREATE TABLE REF_YEAR (
-	ID INT,
-	NAME VARCHAR(4),
-	constraint REF_YEAR_pk primary key (ID)
-)
-
 CREATE TABLE REF_QUARTER (
 	ID INT auto_increment,
 	NAME VARCHAR(5),
 	constraint REF_QUARTER_pk primary key (ID)
 )
 
-CREATE TABLE COUNTER_DATA (
-	ID INT auto_increment,
-	COUNTER_ID LONG not null,
-	PROPERTY_ID LONG not null,
-	YEAR_ID INT not null,
-	MONTH_ID INT not null,
-	VALUE DOUBLE,
-	constraint COUNTER_DATA_pk primary key (ID)
-)
+create table COUNTER_DATA(
+    ID          int auto_increment primary key,
+    COUNTER_ID  mediumtext not null,
+    PROPERTY_ID mediumtext not null,
+    YEAR        int        not null,
+    MONTH_ID    int        not null,
+    VALUE       double     null
+);
 
 CREATE TABLE COUNTER (
 	ID INT auto_increment,
@@ -50,4 +43,11 @@ create table REF_COUNTRY (
     ID int auto_increment,
     NAME varchar(100) not null,
     constraint REF_COUNTRY_pk primary key (ID)
+);
+
+create table REF_CITY (
+    ID INT auto_increment,
+    NAME VARCHAR(100) not null,
+    COUNTRY_ID INT,
+    constraint REF_CITY_pk primary key (ID)
 );

@@ -14,6 +14,7 @@ import com.homeacc.repository.PropertyRepository;
 @Service
 public class PropertyService {
 
+    private static final String EXCEPTION_MESSAGE = "No property record exist for given id";
     private final PropertyRepository propertyRepository;
 
     @Autowired
@@ -31,9 +32,9 @@ public class PropertyService {
         }
     }
 
-    public Property getPropertyById(int id) throws RuntimeException {
+    public Property getPropertyById(int id) {
         Optional<Property> property = propertyRepository.findById(id);
-        return property.orElseThrow(() -> new RuntimeException("No property record exist for given id"));
+        return property.orElseThrow(() -> new RuntimeException(EXCEPTION_MESSAGE));
     }
 
     public Property createOrUpdateProperty(Property entity) {
@@ -58,13 +59,13 @@ public class PropertyService {
         }
     }
 
-    public void deletePropertyById(int id) throws RuntimeException {
+    public void deletePropertyById(int id) {
         Optional<Property> property = propertyRepository.findById(id);
 
         if (property.isPresent()) {
             propertyRepository.deleteById(id);
         } else {
-            throw new RuntimeException("No employee record exist for given id");
+            throw new RuntimeException(EXCEPTION_MESSAGE);
         }
     }
 }

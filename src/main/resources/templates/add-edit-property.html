@@ -23,9 +23,17 @@
                       method="post">
                     <div class="row">
                         <div class="form-group col-md-8">
-                            <label for="country" class="col-form-label">Country</label>
-                            <input type="text" th:field="*{country}" class="form-control"
-                                   id="country" placeholder="Country" />
+                            <label for="countryOption" class="col-form-label">Country</label>
+                            <select th:field="*{country}" id="countryOption" class="form-control">
+<!--                                <option value=""> &#45;&#45; </option>-->
+                                <option th:each="country : ${countries}"
+                                        th:value="${country.id}"
+                                        th:utext="${country.name}"/>
+
+                            </select>
+<!--                            <label for="country" class="col-form-label">Country</label>-->
+<!--                            <input type="text" th:field="*{country}" class="form-control"-->
+<!--                                   id="country" placeholder="Country" />-->
                         </div>
                         <div class="form-group col-md-8">
                             <label for="city" class="col-form-label">City</label>
