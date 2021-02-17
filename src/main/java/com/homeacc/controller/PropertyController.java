@@ -1,98 +1,59 @@
 package com.homeacc.controller;
 
-import javax.validation.Valid;
+import java.util.List;
+import java.util.Optional;
 
-import org.dom4j.rule.Mode;
-import org.springframework.beans.PropertyValue;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.homeacc.exception.ValidationException;
 import com.homeacc.model.Property;
-import com.homeacc.repository.PropertyRepository;
-import com.homeacc.validation.PropertyValidation;
+import com.homeacc.service.PropertyService;
 
 @Controller
 @RequestMapping(path = "/property")
 public class PropertyController {
+    private final PropertyService propertyService;
+
     @Autowired
-    private PropertyRepository propertyRepository;
-
-    @GetMapping("/add")
-    public String showSignUpForm(Property property) {
-        return "property-add";
+    public PropertyController(PropertyService propertyService) {
+        this.propertyService = propertyService;
     }
 
-    @PostMapping(path="/add")
-    public String addProperty (@Valid Property property,
-        BindingResult result, Model model) {
-        if (result.hasErrors()) {
-            return "property-add";
+    @GetMapping
+    public String getAllProperties(Model model) {
+        List<Property> list = propertyService.getAllProperties();
+
+        model.addAttribute("properties", list);
+        return "list-properties";
+    }
+
+    @GetMapping(path = { "/edit", "/edit/{id}" })
+    public String editPropertyById(Model model, @PathVariable("id") Optional<Integer> id)
+        throws RuntimeException {
+        if (id.isPresent()) {
+            Property entity = propertyService.getPropertyById(id.get());
+            model.addAttribute("property", entity);
+        } else {
+            model.addAttribute("property", new Property());
         }
+        return "add-edit-property";
+    }
 
-        propertyRepository.save(property);
+    @GetMapping(path = "/delete/{id}")
+    public String deleteEmployeeById(Model model, @PathVariable("id") Integer id)
+        throws RuntimeException {
+        propertyService.deletePropertyById(id);
         return "redirect:/property";
     }
 
-    @GetMapping("/update/{id}")
-    public String propertyUpdateForm(@PathVariable("id") int id, Model model) {
-        Property p = propertyRepository.findById(id)
-            .orElseThrow(() -> new IllegalArgumentException("Invalid property Id:" + id));
-
-        model.addAttribute("property", p);
-        return "property-update";
-    }
-
-//    @PostMapping(value = "/update/{id}")
-//    public String propertyUpdate(@PathVariable("id") int id,
-//        @RequestBody Property property, Model model) {
-//
-//        try {
-//            PropertyValidation.check(property);
-//        } catch (ValidationException v) {
-//            property.setId(id);
-//            return "property-update";
-//        }
-//
-//        propertyRepository.save(property);
-//        return "redirect:/property";
-//    }
-
-    @PostMapping("/update/{id}")
-    public String updateUser(@PathVariable("id") int id, @Valid Property property,
-        BindingResult result, Model model) {
-        if (result.hasErrors()) {
-            property.setId(id);
-            return "property-update";
-        }
-
-        propertyRepository.save(property);
+    @PostMapping(path = "/add")
+    public String createOrUpdateProperty(Property property) {
+        propertyService.createOrUpdateProperty(property);
         return "redirect:/property";
-    }
-
-    @GetMapping("/delete/{id}")
-    public String deleteUser(@PathVariable("id") int id, Model model) {
-        Property p = propertyRepository.findById(id)
-            .orElseThrow(() -> new IllegalArgumentException("Invalid property Id:" + id));
-        propertyRepository.delete(p);
-        return "redirect:/property";
-    }
-
-    @GetMapping()
-    public String getPropertiesPage(Model model) {
-        model.addAttribute("properties", propertyRepository.findAll());
-        model.addAttribute("property", new Property());
-        return "property-list";
     }
 }

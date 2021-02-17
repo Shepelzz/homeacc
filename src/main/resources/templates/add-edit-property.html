@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Add Employee</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+    <link rel="stylesheet" href="../static/css/main.css" type="text/css" th:href="@{/css/main.css}"/>
+</head>
+
+<style></style>
+
+<body>
+<div class="container my-5">
+    <h3> Add Employee</h3>
+    <div class="card">
+        <div class="card-body">
+            <div class="col-md-10">
+                <form action="#" th:action="@{/property/add}" th:object="${property}"
+                      method="post">
+                    <div class="row">
+                        <div class="form-group col-md-8">
+                            <label for="country" class="col-form-label">Country</label>
+                            <input type="text" th:field="*{country}" class="form-control"
+                                   id="country" placeholder="Country" />
+                        </div>
+                        <div class="form-group col-md-8">
+                            <label for="city" class="col-form-label">City</label>
+                            <input type="text" th:field="*{city}" class="form-control"
+                                   id="city" placeholder="City" />
+                        </div>
+                        <div class="form-group col-md-8">
+                            <label for="street" class="col-form-label">Street</label>
+                            <input type="text" th:field="*{street}" class="form-control"
+                                   id="street" placeholder="Street" />
+                        </div>
+                        <div class="form-group col-md-8">
+                            <label for="houseNo" class="col-form-label">House No</label>
+                            <input type="text" th:field="*{houseNo}" class="form-control"
+                                   id="houseNo" placeholder="House No" />
+                        </div>
+                        <div class="form-group col-md-8">
+                            <label for="flat" class="col-form-label">Flat</label>
+                            <input type="text" th:field="*{flat}" class="form-control"
+                                   id="flat" placeholder="Flat" />
+                        </div>
+
+                        <div class="col-md-6">
+                            <input type="submit" class="btn btn-primary" value=" Submit ">
+                        </div>
+
+                        <input type="hidden" id="id" th:field="*{id}">
+
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+</html>
