@@ -32,8 +32,12 @@ public class PropertyController {
     public String getAllProperties(Model model) {
         List<Property> list = propertyService.getAllProperties();
 
+        //            .map(pr -> pr.add(linkTo(methodOn(CounterController.class)
+        //                .getAllCounters(null, pr.getId())).withSelfRel()))
+        //            .collect(Collectors.toList());
+
         model.addAttribute("properties", list);
-        return "list-properties";
+        return "properties";
     }
 
     @GetMapping(path = { "/edit", "/edit/{id}" })

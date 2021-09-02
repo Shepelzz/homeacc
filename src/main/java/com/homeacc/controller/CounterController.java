@@ -1,6 +1,5 @@
 package com.homeacc.controller;
 
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +30,7 @@ public class CounterController {
     public String getAllCounters(Model model, @PathVariable int propertyId) {
         model.addAttribute("property", propertyService.getPropertyById(propertyId));
         model.addAttribute("counters", counterService.getAllCounters(propertyId));
-        return "list-counters";
+        return "counters";
     }
 
     @GetMapping(path = { "/edit", "/edit/{id}" })
