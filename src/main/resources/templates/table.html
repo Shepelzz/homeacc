@@ -1,0 +1,175 @@
+
+<!doctype html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+    <link rel="stylesheet" href="../static/css/main.css" type="text/css"
+          th:rel="stylesheet" th:href="@{/css/main.css}"/>
+    <link rel="stylesheet" href="../static/css/bootstrap.min.css" type="text/css"
+          th:rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>
+
+    <script src="https://unpkg.com/feather-icons"></script>
+
+    <title></title>
+
+    <style>
+        td, th {
+            border: #0a53be;
+            border-style: solid
+        }
+    </style>
+</head>
+<body>
+
+<header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
+    <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="#">Табличка-хуичка</a>
+    <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <ul class="navbar-nav px-3">
+        <li class="nav-item text-nowrap">
+            <a class="nav-link" href="#">Sign out</a>
+        </li>
+    </ul>
+</header>
+
+<div class="container-fluid">
+    <div class="row">
+        <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse ">
+            <div class="position-sticky pt-3">
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            Dashboard
+                        </a>
+                    </li>
+                </ul>
+
+                <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+                    <span>Saved reports</span>
+                    <a class="link-secondary" href="#" aria-label="Add a new report">
+                        <span data-feather="plus-circle"></span>
+                    </a>
+                </h6>
+                <ul class="nav flex-column mb-2">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <span data-feather="file-text"></span>
+                            Current month
+                        </a>
+                    </li>
+                </ul>
+                <ul class="nav flex-column mb-2">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/property">
+                            <span data-feather="file-text"></span>
+                            Properties
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                <h1 class="h2">Dashboard</h1>
+                <div class="btn-toolbar mb-2 mb-md-0">
+                    <div class="btn-group me-2">
+                        <button type="button" class="btn btn-sm btn-outline-secondary">Share</button>
+                        <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
+                    </div>
+                    <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">
+                        <span data-feather="calendar"></span>
+                        This week
+                    </button>
+                </div>
+            </div>
+
+            <h2>Section title</h2>
+
+            <div class="table-responsive">
+                <table class="tg">
+                    <thead>
+                        <tr>
+                            <th class="tg-0lax"></th>
+                            <th class="tg-0lax"></th>
+                            <div th:each="m : ${monthes}">
+                                <th th:text="${m.name}" colspan="3">jan</th>
+                            </div>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="cd : ${counterData}">
+                            <td th:text="${cd.counter.name}">n1</td>
+                            <td th:text="${cd.counter.serialNumber}">sc1</td>
+                            <div th:each="m : ${monthes}">
+                                <td th:text="${cd.value}">222</td>
+                                <td th:text="${cd.value}">333</td>
+                                <td th:text="${cd.value}">444</td>
+                            </div>
+                        </tr>
+                    </tbody>
+                </table>
+                /////
+
+                <table>
+                    <tr>
+                        <td>
+
+                        </td>
+                    </tr>
+                </table>
+
+                <table class="table table-striped table-responsive-md">
+                    <thead>
+                    <tr>
+                        <th>Counter</th>
+                        <th>Serial Number</th>
+                        <th>Data</th>
+                        <th>Data</th>
+                        <th>Data</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="cd : ${counterData}">
+                        <td th:text="${cd.counter.name}"></td>
+                        <td th:text="${cd.counter.serialNumber}"></td>
+                        <td th:text="${cd.value}"></td>
+                        <td th:text="${cd.value}"></td>
+                        <td th:text="${cd.value}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+
+                <nav aria-label="Page navigation" class="paging">
+<!--                    <ul class="pagination" th:if="${employees.page.totalPages > 1}">-->
+<!--                        <li class="page-item" th:classappend="${!employees.paging.isPrevEnabled()? 'disabled' : ''}">-->
+<!--                            <a class="page-link" th:href="@{'/?pageNumber=' + ${employees.paging.pageNumber - 1}}"-->
+<!--                               tabindex="-1">Previous</a>-->
+<!--                        </li>-->
+<!--                        <th:block th:each="item : ${employees.paging.getItems()}">-->
+<!--                            <li class="page-item" th:classappend="${item.index == employees.paging.pageNumber? 'active' : ''}"-->
+<!--                                th:if="${item.pageItemType.name() == 'PAGE'}">-->
+<!--                                <a class="page-link" th:href="@{'/?pageNumber=' + ${item.index}}"-->
+<!--                                   th:text="${item.index}"></a>-->
+<!--                            </li>-->
+<!--                            <li class="page-item disabled" th:if="${item.pageItemType.name() == 'DOTS'}">-->
+<!--                                <a class="page-link" href="#">...</a>-->
+<!--                            </li>-->
+<!--                        </th:block>-->
+<!--                        <li class="page-item" th:classappend="${!employees.paging.isNextEnabled()? 'disabled' : ''}">-->
+<!--                            <a class="page-link" th:href="@{'/?pageNumber=' + ${employees.paging.pageNumber + 1}}">Next</a>-->
+<!--                        </li>-->
+                    </ul>
+                </nav>
+            </div>
+        </main>
+    </div>
+</div>
+
+</body>
+</html>
