@@ -26,7 +26,7 @@ public class CounterDataController {
     }
 
     @GetMapping(path = "/data")
-    public String getCounterData(Model model, @PathVariable int propertyId) {
+    public String getCounterData(Model model, @PathVariable Integer propertyId) {
         List<CounterData> counterDataList =
             counterDataService.getAllCounterData(propertyId);
 

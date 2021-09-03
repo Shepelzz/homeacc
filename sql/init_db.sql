@@ -51,3 +51,11 @@ create table REF_CITY (
     COUNTRY_ID INT,
     constraint REF_CITY_pk primary key (ID)
 );
+
+create table USER(
+    ID          INT auto_increment primary key,
+    FIRST_NAME  VARCHAR(100) not null,
+    LAST_NAME   VARCHAR(100) not null,
+    USERNAME    VARCHAR(100) not null,
+    PASSWORD    VARCHAR(100) not null
+);

@@ -19,7 +19,7 @@ public class CounterDataService {
         this.counterDataRepository = counterDataRepository;
     }
 
-    public List<CounterData> getAllCounterData(int propertyId) {
+    public List<CounterData> getAllCounterData(Integer propertyId) {
         List<CounterData> result = counterDataRepository.findByPropertyId(propertyId);
 
         if (result.size() > 0) {
@@ -29,7 +29,7 @@ public class CounterDataService {
         }
     }
 
-    public CounterData getCounterData(int counterId, int monthId) {
+    public CounterData getCounterData(Integer counterId, Integer monthId) {
         return counterDataRepository.findByCounterId(counterId).stream()
             .filter(cd -> cd.getMonth().getId().equals(monthId))
             .findFirst().orElse(null);

@@ -85,7 +85,9 @@
                         <p class="card-text" th:text="${p.getFullName()}">Property name gfgfgf fgfgfgf fgfgfgf fgfgfgfg ddddddddddddddd</p>
                         <div class="d-flex justify-content-between align-items-center">
                             <div class="btn-group">
-                                <a th:href="@{/property/{id}/data(id=${p.id})}"
+<!--                                <a th:href="@{/property/{id}/data(id=${p.id})}"-->
+<!--                                   class="btn btn-md btn-outline-secondary">View</a>-->
+                                <a th:href="@{/table/{id}(id=${p.id})}"
                                    class="btn btn-md btn-outline-secondary">View</a>
                                 <a th:href="@{/property/edit/{id}(id=${p.id})}"
                                    class="btn btn-md btn-outline-secondary">Edit</a>

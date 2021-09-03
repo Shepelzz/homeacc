@@ -11,7 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.homeacc.model.Counter;
 import com.homeacc.model.CounterData;
@@ -19,7 +21,7 @@ import com.homeacc.model.Month;
 import com.homeacc.service.CounterDataService;
 
 @Controller
-@RequestMapping(path = "/")
+@RequestMapping(path = "/table")
 public class TableController {
     private final CounterDataService counterDataService;
 
@@ -28,10 +30,14 @@ public class TableController {
         this.counterDataService = counterDataService;
     }
 
-    @GetMapping
-    public String getAllProperties(Model model, HttpServletResponse response) {
+    @GetMapping(path = "/{propertyId}")
+    public String getAllData(Model model, @PathVariable Integer propertyId) {
+        if(propertyId == null) {
+            throw new IllegalArgumentException("Property not provided");
+        }
+
         List<CounterData> counterDataList =
-            counterDataService.getAllCounterData(1);
+            counterDataService.getAllCounterData(propertyId);
 
         List<Counter> counters = counterDataList.stream()
             .map(CounterData::getCounter)
@@ -44,8 +50,7 @@ public class TableController {
         model.addAttribute("counterData", counterDataList);
         model.addAttribute("counters", counters);
         model.addAttribute("monthes", monthes);
-
-        response.addCookie(new Cookie("test", "value"));
+        model.addAttribute("propertyId", propertyId);
 
         return "table";
     }
